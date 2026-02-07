@@ -1,0 +1,20 @@
+﻿KisaSchoolMangement
+
+
+winexe
+C#
+.cs
+E:\Office Projects\KisaSchoolMangement\KisaSchoolMangement\obj\Debug\net8.0-windows\
+KisaSchoolMangement
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+E:\Office Projects\KisaSchoolMangement\KisaSchoolMangement\App.xaml
+21-1041474339
+221564960629
+671194939774
+2401045347066
+MainWindow.xaml;Views\Auth\LoginView.xaml;Views\Classesmangement\AddClassWindow.xaml;Views\Classesmangement\AddSectionWindow.xaml;Views\Dashboard\DashboardView.xaml;Views\Donors\AssignDonorWindow.xaml;Views\Donors\DonorStudentAssignmentsView.xaml;Views\Donors\DonorView.xaml;Views\Donors\StudentsWithDonorsView.xaml;Views\Exams\AddExamWindow.xaml;Views\Exams\ExamsManagementView.xaml;Views\Exams\ManageExamSubjectsWindow.xaml;Views\Student\AddStudentWindow.xaml;Views\Student\StudentView.xaml;Views\Teachers\AddEditTeacherWindow.xaml;Views\Teachers\AssignSubjectsWindow.xaml;Views\Teachers\TeachersManagementView.xaml;Views\users\AddEditUserWindow.xaml;Views\users\PasswordResetDialog.xaml;Views\users\ResetPasswordWindow.xaml;Views\users\UserView.xaml;
+
+False
+

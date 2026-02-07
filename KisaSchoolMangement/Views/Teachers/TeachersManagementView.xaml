@@ -1,0 +1,253 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Teachers.TeachersManagementView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="👨‍🏫 Teacher Management System" 
+        Height="800" 
+        Width="1200"
+        WindowStartupLocation="CenterOwner"
+        Background="#f5f6fa"
+        WindowState="Maximized">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <Border Grid.Row="0" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="👨‍🏫 Teacher Management System" 
+                               FontSize="26" 
+                               FontWeight="Bold" 
+                               Foreground="#2c3e50"/>
+                    <TextBlock Text="Manage teacher profiles, assignments, attendance, and information" 
+                               FontSize="13" 
+                               Foreground="#7f8c8d" 
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Quick Actions -->
+            <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="15" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="🚀 Quick Actions" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#2c3e50"
+                               Margin="0,0,0,10"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="➕ Add New Teacher" 
+                                Click="BtnAddTeacher_Click" 
+                                Width="150" Height="40" 
+                                Background="#27ae60" 
+                                Foreground="White" 
+                                FontWeight="SemiBold"
+                                Margin="0,0,15,0"
+                                ToolTip="Add new teacher to system"/>
+
+                        <Button Content="📊 View Attendance" 
+                                Click="BtnViewAttendance_Click" 
+                                Width="150" Height="40" 
+                                Background="#3498db" 
+                                Foreground="White" 
+                                FontWeight="SemiBold"
+                                Margin="0,0,15,0"
+                                ToolTip="View teacher attendance records"/>
+
+                        <Button Content="📚 Assign Subjects" 
+                                Click="BtnAssignSubjects_Click" 
+                                Width="150" Height="40" 
+                                Background="#9b59b6" 
+                                Foreground="White" 
+                                FontWeight="SemiBold"
+                                Margin="0,0,15,0"
+                                ToolTip="Assign subjects to teachers"/>
+
+                        <Button Content="🔄 Refresh" 
+                                Click="BtnRefresh_Click" 
+                                Width="120" Height="40" 
+                                Background="#95a5a6" 
+                                Foreground="White" 
+                                FontWeight="SemiBold"
+                                ToolTip="Refresh teachers list"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Main Content -->
+            <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="0" 
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <Border Background="#34495e" CornerRadius="10,10,0,0" Padding="15">
+                        <Grid>
+                            <TextBlock Text="📋 All Teachers" 
+                                       FontSize="16" 
+                                       FontWeight="Bold" 
+                                       Foreground="White"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBox x:Name="txtSearchTeacher" 
+                                         Width="200" Height="30" 
+                                         Padding="10,0"
+                                         TextChanged="TxtSearchTeacher_TextChanged"
+                                         ToolTip="Search teachers by name, email, or phone">
+                                    <TextBox.Style>
+                                        <Style TargetType="TextBox">
+                                            <Setter Property="Foreground" Value="#6c757d"/>
+                                            <Setter Property="FontStyle" Value="Italic"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsFocused" Value="True">
+                                                    <Setter Property="Foreground" Value="#000000"/>
+                                                    <Setter Property="FontStyle" Value="Normal"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBox.Style>
+                                </TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="500">
+                        <DataGrid x:Name="dgTeachers" 
+                                  AutoGenerateColumns="False" 
+                                  IsReadOnly="True"
+                                  SelectionChanged="DgTeachers_SelectionChanged" 
+                                  SelectionMode="Single"
+                                  HeadersVisibility="Column"
+                                  CanUserSortColumns="True">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="🖼️ Photo" Width="80">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Border Width="50" Height="50" CornerRadius="25" 
+                                                    Background="#e0e0e0" Margin="5">
+                                                <Image Stretch="UniformToFill"
+                                                       ToolTip="Teacher Photo">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Setter Property="Source" Value="/Assets/Images/Schoollogo.png"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding PhotoPath}" Value="{x:Null}">
+                                                                    <Setter Property="Source" Value="/Assets/Images/Schoollogo.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding PhotoPath}" Value="">
+                                                                    <Setter Property="Source" Value="/Assets/Images/Schoollogo.png"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding PhotoPath}" Value="{x:Null}">
+                                                                    <Setter Property="Source" Value="/Assets/Images/Schoollogo.png"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
+                                            </Border>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTextColumn Header="👤 Full Name" 
+                                                   Binding="{Binding FullName}" 
+                                                   Width="180"/>
+                                <DataGridTextColumn Header="📧 Email" 
+                                                   Binding="{Binding Email}" 
+                                                   Width="200"/>
+                                <DataGridTextColumn Header="📞 Phone" 
+                                                   Binding="{Binding Phone}" 
+                                                   Width="120"/>
+                                <DataGridTextColumn Header="🎓 Qualification" 
+                                                   Binding="{Binding Qualification}" 
+                                                   Width="150"/>
+                                <DataGridTextColumn Header="📅 Hire Date" 
+                                                   Binding="{Binding HireDate}" 
+                                                   Width="100"/>
+                                <DataGridTextColumn Header="✅ Status" 
+                                                   Binding="{Binding Status}" 
+                                                   Width="80">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Padding" Value="5,2"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Active">
+                                                    <Setter Property="Foreground" Value="#27ae60"/>
+                                                    <Setter Property="Background" Value="#d5edda"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                    <Setter Property="Foreground" Value="#e74c3c"/>
+                                                    <Setter Property="Background" Value="#f8d7da"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
+                                <DataGridTemplateColumn Header="⚡ Actions" Width="150">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Content="✏️" 
+                                                        Click="BtnEditTeacher_Click" 
+                                                        Background="#3498db" 
+                                                        Foreground="White" 
+                                                        Width="30" Height="30"
+                                                        Margin="2"
+                                                        ToolTip="Edit teacher"/>
+                                                <Button Content="👁️" 
+                                                        Click="BtnViewTeacher_Click" 
+                                                        Background="#9b59b6" 
+                                                        Foreground="White" 
+                                                        Width="30" Height="30"
+                                                        Margin="2"
+                                                        ToolTip="View details"/>
+                                                <Button Content="🗑️" 
+                                                        Click="BtnDeleteTeacher_Click" 
+                                                        Background="#e74c3c" 
+                                                        Foreground="White" 
+                                                        Width="30" Height="30"
+                                                        Margin="2"
+                                                        ToolTip="Delete teacher"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </ScrollViewer>
+
+                    <Border Background="#f8f9fa" Padding="10" CornerRadius="0,0,10,10">
+                        <Grid>
+                            <TextBlock x:Name="txtTeachersCount" 
+                                       Text="📊 Total Teachers: 0" 
+                                       FontSize="12" 
+                                       FontWeight="SemiBold" 
+                                       Foreground="#495057"/>
+                            <TextBlock Text="👆 Click on any teacher to view details or use action buttons" 
+                                       FontSize="10" 
+                                       Foreground="#6c757d" 
+                                       HorizontalAlignment="Right"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Bottom Status Bar -->
+            <StatusBar Grid.Row="3" Background="#2c3e50" Height="30" Margin="0,10,0,0">
+                <StatusBarItem>
+                    <TextBlock x:Name="txtStatus" Text="✅ Ready - Teacher Management System" 
+                               Foreground="White" FontWeight="SemiBold"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <TextBlock Text="🏫 Kisa School Management System" 
+                               Foreground="#bdc3c7" FontSize="11"/>
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </ScrollViewer>
+</Window>

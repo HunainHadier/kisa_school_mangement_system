@@ -1,0 +1,222 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Teachers.AddEditTeacherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="👨‍🏫 Add/Edit Teacher" 
+        Height="700" 
+        Width="800"
+        WindowStartupLocation="CenterOwner"
+        Background="#f5f6fa"
+        ResizeMode="NoResize">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock x:Name="txtHeader" 
+                               Text="👨‍🏫 Add New Teacher" 
+                               FontSize="22" 
+                               FontWeight="Bold" 
+                               Foreground="#2c3e50"/>
+                    <TextBlock Text="Fill in the teacher details below" 
+                               FontSize="13" 
+                               Foreground="#7f8c8d" 
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Photo Upload Section -->
+            <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="🖼️ Teacher Photo" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="#2c3e50"
+                               Margin="0,0,0,15"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border x:Name="photoBorder" 
+                                Width="120" Height="120" 
+                                CornerRadius="60" 
+                                Background="#e0e0e0" 
+                                BorderBrush="#bdc3c7" 
+                                BorderThickness="2">
+                            <Image x:Name="imgTeacherPhoto" 
+                                   Source="/Assets/Images/Schoollogo.png" 
+                                   Stretch="UniformToFill"/>
+                        </Border>
+
+                        <StackPanel Margin="20,0,0,0" VerticalAlignment="Center">
+                            <Button Content="📁 Upload Photo" 
+                                    Click="BtnUploadPhoto_Click" 
+                                    Width="120" Height="35" 
+                                    Background="#3498db" 
+                                    Foreground="White" 
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,10"
+                                    ToolTip="Upload teacher photo"/>
+                            <Button Content="🗑️ Remove Photo" 
+                                    Click="BtnRemovePhoto_Click" 
+                                    Width="120" Height="35" 
+                                    Background="#95a5a6" 
+                                    Foreground="White" 
+                                    FontWeight="SemiBold"
+                                    ToolTip="Remove current photo"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <TextBlock Text="💡 Supported formats: JPG, PNG, GIF | Max size: 2MB" 
+                               FontSize="11" 
+                               Foreground="#7f8c8d" 
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Teacher Details Form -->
+            <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Full Name -->
+                        <TextBlock Grid.Row="0" Grid.Column="0" 
+                                   Text="👤 Full Name *" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,0,0,5"/>
+                        <TextBox Grid.Row="1" Grid.Column="0" 
+                                 x:Name="txtFullName" 
+                                 Height="35" 
+                                 FontSize="13"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="Enter teacher's full name"/>
+
+                        <!-- Email -->
+                        <TextBlock Grid.Row="0" Grid.Column="2" 
+                                   Text="📧 Email Address" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,0,0,5"/>
+                        <TextBox Grid.Row="1" Grid.Column="2" 
+                                 x:Name="txtEmail" 
+                                 Height="35" 
+                                 FontSize="13"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="Enter teacher's email address"/>
+
+                        <!-- Phone -->
+                        <TextBlock Grid.Row="2" Grid.Column="0" 
+                                   Text="📞 Phone Number" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,15,0,5"/>
+                        <TextBox Grid.Row="3" Grid.Column="0" 
+                                 x:Name="txtPhone" 
+                                 Height="35" 
+                                 FontSize="13"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="Enter teacher's phone number"/>
+
+                        <!-- Hire Date -->
+                        <TextBlock Grid.Row="2" Grid.Column="2" 
+                                   Text="📅 Hire Date" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,15,0,5"/>
+                        <DatePicker Grid.Row="3" Grid.Column="2" 
+                                    x:Name="dpHireDate" 
+                                    Height="35" 
+                                    FontSize="13"
+                                    VerticalContentAlignment="Center"
+                                    ToolTip="Select hire date"/>
+
+                        <!-- Qualification -->
+                        <TextBlock Grid.Row="4" Grid.Column="0" 
+                                   Text="🎓 Qualification *" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,15,0,5"/>
+                        <TextBox Grid.Row="5" Grid.Column="0" 
+                                 x:Name="txtQualification" 
+                                 Height="35" 
+                                 FontSize="13"
+                                 VerticalContentAlignment="Center"
+                                 ToolTip="Enter teacher's qualification"/>
+
+                        <!-- Status -->
+                        <TextBlock Grid.Row="4" Grid.Column="2" 
+                                   Text="✅ Status" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,15,0,5"/>
+                        <CheckBox Grid.Row="5" Grid.Column="2" 
+                                  x:Name="chkIsActive" 
+                                  Content="Active Teacher" 
+                                  IsChecked="True"
+                                  VerticalAlignment="Center"
+                                  FontWeight="SemiBold"
+                                  ToolTip="Set teacher status"/>
+
+                        <!-- Address -->
+                        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
+                                   Text="🏠 Address" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,15,0,5"/>
+                        <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3"
+                                 x:Name="txtAddress" 
+                                 Height="80" 
+                                 FontSize="13"
+                                 VerticalScrollBarVisibility="Auto"
+                                 TextWrapping="Wrap"
+                                 AcceptsReturn="True"
+                                 ToolTip="Enter teacher's address"/>
+                    </Grid>
+                </ScrollViewer>
+            </Border>
+
+            <!-- Action Buttons -->
+            <Border Grid.Row="3" Background="White" CornerRadius="10" Padding="20"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnSave" 
+                            Content="💾 Save Teacher" 
+                            Click="BtnSave_Click" 
+                            Width="150" Height="45" 
+                            Background="#27ae60" 
+                            Foreground="White" 
+                            FontWeight="Bold"
+                            FontSize="13"
+                            Margin="0,0,20,0"
+                            ToolTip="Save teacher information"/>
+
+                    <Button Content="❌ Cancel" 
+                            Click="BtnCancel_Click" 
+                            Width="120" Height="45" 
+                            Background="#95a5a6" 
+                            Foreground="White" 
+                            FontWeight="SemiBold"
+                            ToolTip="Cancel without saving"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</Window>

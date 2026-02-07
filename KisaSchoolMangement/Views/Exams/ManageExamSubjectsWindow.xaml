@@ -1,0 +1,219 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Exams.ManageExamSubjectsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="📚 Manage Exam Subjects" Height="550" Width="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#f5f6fa"
+        ResizeMode="CanResizeWithGrip">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header Section -->
+        <Border Grid.Row="0" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                BorderBrush="#e0e0e0" BorderThickness="1">
+            <StackPanel>
+                <TextBlock x:Name="txtHeader" 
+                           Text="📚 Manage Exam Subjects" 
+                           FontSize="22" 
+                           FontWeight="Bold" 
+                           Foreground="#2c3e50"/>
+                <TextBlock x:Name="txtExamInfo" 
+                           Text="Select exam details will appear here" 
+                           FontSize="13" 
+                           Foreground="#7f8c8d" 
+                           Margin="0,5,0,0"/>
+
+                <Border Background="#d1ecf1" BorderBrush="#bee5eb" BorderThickness="1" 
+                        CornerRadius="5" Padding="10" Margin="0,10,0,0">
+                    <TextBlock Text="💡 Add subjects to this exam. Each subject requires Maximum Marks and Passing Marks." 
+                               FontSize="11" 
+                               Foreground="#0c5460"
+                               TextWrapping="Wrap"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Add Subject Section -->
+        <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                BorderBrush="#e0e0e0" BorderThickness="1">
+            <StackPanel>
+                <TextBlock Text="➕ Add New Subject to Exam" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           Foreground="#2c3e50"
+                           Margin="0,0,0,15"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Labels -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="📖 Select Subject" 
+                               FontWeight="SemiBold" FontSize="12" Foreground="#495057" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="📊 Max Marks" 
+                               FontWeight="SemiBold" FontSize="12" Foreground="#495057" Margin="0,0,0,5"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="🎯 Pass Marks" 
+                               FontWeight="SemiBold" FontSize="12" Foreground="#495057" Margin="0,0,0,5"/>
+
+                    <!-- Input Controls -->
+                    <ComboBox Grid.Row="1" Grid.Column="0" 
+                              x:Name="cmbSubjects" 
+                              Height="40" 
+                              DisplayMemberPath="Name" 
+                              SelectedValuePath="Id"
+                              Margin="0,0,15,0"
+                              FontSize="13"
+                              ToolTip="Select subject to add to exam"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             x:Name="txtMaxMarks" 
+                             Width="100" Height="40" 
+                             Text="100" 
+                             Margin="0,0,15,0"
+                             FontSize="13"
+                             VerticalContentAlignment="Center"
+                             ToolTip="Enter maximum marks for this subject"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="2" 
+                             x:Name="txtPassMarks" 
+                             Width="100" Height="40" 
+                             Text="33" 
+                             Margin="0,0,15,0"
+                             FontSize="13"
+                             VerticalContentAlignment="Center"
+                             ToolTip="Enter passing marks for this subject"/>
+
+                    <Button Grid.Row="1" Grid.Column="3" 
+                            Content="✅ Add Subject" 
+                            Click="BtnAddSubject_Click" 
+                            Width="120" Height="40" 
+                            Background="#27ae60" 
+                            Foreground="White" 
+                            FontWeight="SemiBold"
+                            Margin="0,0,15,0"
+                            ToolTip="Add selected subject to exam"/>
+
+                    <Button Grid.Row="1" Grid.Column="4" 
+                            Content="🔄 Refresh" 
+                            Click="BtnRefresh_Click" 
+                            Width="100" Height="40" 
+                            Background="#95a5a6" 
+                            Foreground="White" 
+                            FontWeight="SemiBold"
+                            ToolTip="Refresh subjects list"/>
+                </Grid>
+
+                <TextBlock Text="💡 Select a subject, set marks, and click 'Add Subject'" 
+                           FontSize="11" 
+                           Foreground="#6c757d" 
+                           Margin="0,10,0,0"
+                           FontStyle="Italic"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Subjects List -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="0" Margin="0,0,0,15"
+                BorderBrush="#e0e0e0" BorderThickness="1">
+            <StackPanel>
+                <Border Background="#34495e" CornerRadius="10,10,0,0" Padding="15">
+                    <Grid>
+                        <TextBlock Text="📋 Current Exam Subjects" 
+                                   FontSize="14" 
+                                   FontWeight="Bold" 
+                                   Foreground="White"/>
+                        <TextBlock Text="👆 Click on any subject to select it for removal" 
+                                   FontSize="11" 
+                                   Foreground="#bdc3c7" 
+                                   HorizontalAlignment="Right"/>
+                    </Grid>
+                </Border>
+
+                <DataGrid x:Name="dgExamSubjects" 
+                          AutoGenerateColumns="False" 
+                          IsReadOnly="True" 
+                          SelectionMode="Single"
+                          CanUserSortColumns="True"
+                          HeadersVisibility="Column"
+                          Height="250">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="📖 Subject Name" 
+                                           Binding="{Binding SubjectName}" 
+                                           Width="250"/>
+                        <DataGridTextColumn Header="🔤 Subject Code" 
+                                           Binding="{Binding SubjectCode}" 
+                                           Width="120"/>
+                        <DataGridTextColumn Header="📊 Maximum Marks" 
+                                           Binding="{Binding MaxMarks}" 
+                                           Width="120"/>
+                        <DataGridTextColumn Header="🎯 Passing Marks" 
+                                           Binding="{Binding PassMarks}" 
+                                           Width="120"/>
+                        <DataGridTemplateColumn Header="⚡ Actions" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="🗑️ Remove" 
+                                            Click="BtnRemoveSubject_Click" 
+                                            Background="#e74c3c" 
+                                            Foreground="White" 
+                                            Padding="10,5" 
+                                            FontSize="11"
+                                            FontWeight="SemiBold"
+                                            ToolTip="Remove this subject from exam"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Border Background="#f8f9fa" Padding="10" CornerRadius="0,0,10,10">
+                    <TextBlock x:Name="txtSubjectsCount" 
+                               Text="📊 Total Subjects: 0" 
+                               FontSize="12" 
+                               FontWeight="SemiBold" 
+                               Foreground="#495057"
+                               HorizontalAlignment="Center"/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Action Buttons -->
+        <Border Grid.Row="3" Background="White" CornerRadius="10" Padding="20"
+                BorderBrush="#e0e0e0" BorderThickness="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="💾 Save All Changes" 
+                        Click="BtnSave_Click" 
+                        Width="150" Height="45" 
+                        Background="#3498db" 
+                        Foreground="White" 
+                        FontWeight="Bold"
+                        FontSize="13"
+                        Margin="0,0,20,0"
+                        ToolTip="Save all subject changes to database"/>
+
+                <Button Content="❌ Close Window" 
+                        Click="BtnClose_Click" 
+                        Width="130" Height="45" 
+                        Background="#95a5a6" 
+                        Foreground="White" 
+                        FontWeight="SemiBold"
+                        ToolTip="Close this window without saving"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

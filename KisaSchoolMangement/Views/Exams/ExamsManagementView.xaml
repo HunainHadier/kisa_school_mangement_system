@@ -1,0 +1,597 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Exams.ExamsManagementView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="📊 Exams Management System" 
+        Height="800" 
+        Width="1400"
+        WindowStartupLocation="CenterOwner"
+        Background="#f5f6fa"
+        WindowState="Maximized">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        <Grid Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header Section -->
+            <Border Grid.Row="0" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15"
+                    BorderBrush="#e0e0e0" BorderThickness="1">
+                <StackPanel>
+                    <TextBlock Text="🎯 Exams Management System" 
+                               FontSize="26" 
+                               FontWeight="Bold" 
+                               Foreground="#2c3e50"/>
+                    <TextBlock Text="Create exams, manage subjects, enter marks, and generate report cards" 
+                               FontSize="13" 
+                               Foreground="#7f8c8d" 
+                               Margin="0,5,0,0"/>
+
+                    <!-- Selection Status -->
+                    <Border Background="#fff3cd" BorderBrush="#ffeaa7" BorderThickness="1" 
+                            CornerRadius="5" Padding="10" Margin="0,15,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="💡" FontSize="16" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBlock x:Name="txtSelectionStatus" 
+                                       Text="Please select an exam from the list below to get started" 
+                                       FontSize="12" 
+                                       Foreground="#856404"
+                                       FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+            <!-- Main Content Tabs -->
+            <TabControl Grid.Row="2" Background="Transparent" BorderThickness="0">
+
+                <!-- 🏫 EXAM SETUP TAB -->
+                <TabItem Header="📋 Exam Setup &amp; Configuration" FontWeight="SemiBold">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Border Background="White" CornerRadius="10" Margin="5" Padding="0">
+                            <Grid Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Quick Actions -->
+                                <Border Grid.Row="0" Background="#f8f9fa" CornerRadius="8" Padding="15" Margin="0,0,0,15">
+                                    <StackPanel>
+                                        <TextBlock Text="🚀 Quick Actions" 
+                                                   FontSize="16" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#2c3e50"
+                                                   Margin="0,0,0,10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="➕ Create New Exam" 
+                                                    Click="BtnNewExam_Click" 
+                                                    Width="140" Height="40" 
+                                                    Background="#27ae60" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    Margin="0,0,15,0"
+                                                    ToolTip="Create a new exam for a class"/>
+
+                                            <Button Content="📚 Manage Subjects" 
+                                                    Click="BtnManageSubjects_Click" 
+                                                    Width="140" Height="40" 
+                                                    Background="#3498db" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    Margin="0,0,15,0"
+                                                    ToolTip="Add/Remove subjects for selected exam"/>
+
+                                            <Button Content="🔄 Refresh List" 
+                                                    Click="BtnRefreshExams_Click" 
+                                                    Width="120" Height="40" 
+                                                    Background="#95a5a6" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    ToolTip="Refresh exams list"/>
+                                        </StackPanel>
+
+                                        <TextBlock Text="💡 First create an exam, then add subjects to it" 
+                                                   FontSize="11" 
+                                                   Foreground="#7f8c8d" 
+                                                   Margin="0,10,0,0"
+                                                   FontStyle="Italic"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Exams List -->
+                                <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="0" 
+                                        BorderBrush="#e0e0e0" BorderThickness="1">
+                                    <StackPanel>
+                                        <Border Background="#34495e" CornerRadius="8,8,0,0" Padding="12">
+                                            <TextBlock Text="📝 All Exams" 
+                                                       FontSize="14" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="White"/>
+                                        </Border>
+
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                                            <DataGrid x:Name="dgExams" 
+                                                      AutoGenerateColumns="False" 
+                                                      IsReadOnly="True"
+                                                      SelectionChanged="DgExams_SelectionChanged" 
+                                                      SelectionMode="Single"
+                                                      HeadersVisibility="Column"
+                                                      CanUserSortColumns="True">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="📖 Exam Name" 
+                                                                       Binding="{Binding Name}" 
+                                                                       Width="180"/>
+                                                    <DataGridTextColumn Header="🏫 Class" 
+                                                                       Binding="{Binding ClassName}" 
+                                                                       Width="100"/>
+                                                    <DataGridTextColumn Header="📊 Type" 
+                                                                       Binding="{Binding ExamTypeName}" 
+                                                                       Width="120"/>
+                                                    <DataGridTextColumn Header="📅 Duration" 
+                                                                       Binding="{Binding Duration}" 
+                                                                       Width="220"/>
+                                                    <DataGridTextColumn Header="🎓 Academic Year" 
+                                                                       Binding="{Binding AcademicYear}" 
+                                                                       Width="120"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+
+                                        <TextBlock Text="👆 Click on any exam to select it for management" 
+                                                   FontSize="11" 
+                                                   Foreground="#7f8c8d" 
+                                                   Margin="10,5,10,10"
+                                                   HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- 📝 ENTER MARKS TAB -->
+                <TabItem Header="✏️ Enter &amp; Manage Marks" FontWeight="SemiBold">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Border Background="White" CornerRadius="10" Margin="5" Padding="0">
+                            <Grid Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Exam Selection -->
+                                <Border Grid.Row="0" Background="#e8f4fd" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <TextBlock Text="1️⃣ Select Exam for Marks Entry" 
+                                                   FontSize="14" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#2980b9"
+                                                   Margin="0,0,0,10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Choose Exam:" 
+                                                       VerticalAlignment="Center" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,10,0"/>
+                                            <ComboBox x:Name="cmbExams" 
+                                                      Width="300" Height="35" 
+                                                      DisplayMemberPath="Name" 
+                                                      SelectionChanged="CmbExams_SelectionChanged"
+                                                      ToolTip="Select exam to enter marks"/>
+                                            <Button Content="👥 Load Students &amp; Subjects" 
+                                                    Click="BtnLoadStudents_Click" 
+                                                    Width="180" Height="35" 
+                                                    Background="#3498db" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    Margin="15,0,0,0"
+                                                    ToolTip="Load students and subjects for selected exam"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Summary Info -->
+                                <Border Grid.Row="1" Background="#f8f9fa" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Background="#d5edda" CornerRadius="5" Padding="10" Margin="0,0,15,0">
+                                            <TextBlock x:Name="txtStudentCount" 
+                                                       Text="👨‍🎓 Students: 0" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="#155724"/>
+                                        </Border>
+                                        <Border Background="#cce7ff" CornerRadius="5" Padding="10" Margin="0,0,15,0">
+                                            <TextBlock x:Name="txtSubjectCount" 
+                                                       Text="📚 Subjects: 0" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="#004085"/>
+                                        </Border>
+                                        <Border Background="#fff3cd" CornerRadius="5" Padding="10">
+                                            <TextBlock Text="💡 Enter marks in 'Marks Obtained' column and click Save" 
+                                                       FontSize="11" 
+                                                       Foreground="#856404"/>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Marks Entry Grid -->
+                                <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="0" 
+                                        BorderBrush="#e0e0e0" BorderThickness="1" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <Border Background="#2c3e50" CornerRadius="8,8,0,0" Padding="12">
+                                            <TextBlock Text="📊 Marks Entry Grid" 
+                                                       FontSize="14" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="White"/>
+                                        </Border>
+
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="450">
+                                            <DataGrid x:Name="dgMarks" 
+                                                      AutoGenerateColumns="False" 
+                                                      CanUserAddRows="False" 
+                                                      CanUserDeleteRows="False"
+                                                      HeadersVisibility="Column">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="👤 Student" 
+                                                                       Binding="{Binding StudentName}" 
+                                                                       Width="160" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="🔢 Admission No" 
+                                                                       Binding="{Binding StudentAdmissionNo}" 
+                                                                       Width="100" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="🏫 Class" 
+                                                                       Binding="{Binding StudentClassName}" 
+                                                                       Width="80" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📖 Subject" 
+                                                                       Binding="{Binding SubjectName}" 
+                                                                       Width="130" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📊 Max Marks" 
+                                                                       Binding="{Binding MaxMarks}" 
+                                                                       Width="80" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="🎯 Pass Marks" 
+                                                                       Binding="{Binding PassMarks}" 
+                                                                       Width="80" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="✏️ Marks Obtained" 
+                                                                       Binding="{Binding MarksObtained}" 
+                                                                       Width="100">
+                                                        <DataGridTextColumn.ElementStyle>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="Background" Value="#fff3cd"/>
+                                                                <Setter Property="Padding" Value="5"/>
+                                                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                                            </Style>
+                                                        </DataGridTextColumn.ElementStyle>
+                                                    </DataGridTextColumn>
+                                                    <DataGridTextColumn Header="📈 Grade" 
+                                                                       Binding="{Binding Grade}" 
+                                                                       Width="70" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📊 Percentage" 
+                                                                       Binding="{Binding Percentage, StringFormat={}{0:F2}%}" 
+                                                                       Width="90" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="✅ Status" 
+                                                                       Binding="{Binding Status}" 
+                                                                       Width="70" IsReadOnly="True">
+                                                        <DataGridTextColumn.ElementStyle>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                                <Setter Property="FontWeight" Value="Bold"/>
+                                                                <Setter Property="Padding" Value="5,2"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="Pass">
+                                                                        <Setter Property="Foreground" Value="#27ae60"/>
+                                                                        <Setter Property="Background" Value="#d5edda"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="Fail">
+                                                                        <Setter Property="Foreground" Value="#e74c3c"/>
+                                                                        <Setter Property="Background" Value="#f8d7da"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </DataGridTextColumn.ElementStyle>
+                                                    </DataGridTextColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Save Button -->
+                                <Border Grid.Row="3" Background="#e8f6f3" CornerRadius="8" Padding="15">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="💾 Save All Marks" 
+                                                Click="BtnSaveMarks_Click" 
+                                                Width="150" Height="40" 
+                                                Background="#27ae60" 
+                                                Foreground="White" 
+                                                FontWeight="Bold"
+                                                FontSize="13"
+                                                ToolTip="Save all entered marks to database"/>
+                                        <TextBlock Text="💡 Don't forget to save after entering marks" 
+                                                   FontSize="11" 
+                                                   Foreground="#0d5c3e" 
+                                                   Margin="15,0,0,0"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- 📄 REPORT CARDS TAB -->
+                <TabItem Header="📊 Reports &amp; Analytics" FontWeight="SemiBold">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Border Background="White" CornerRadius="10" Margin="5" Padding="0">
+                            <Grid Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Report Controls -->
+                                <Border Grid.Row="0" Background="#f4ecff" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <TextBlock Text="📈 Generate Report Cards" 
+                                                   FontSize="14" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#6f42c1"
+                                                   Margin="0,0,0,10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Select Exam:" 
+                                                       VerticalAlignment="Center" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,10,0"/>
+                                            <ComboBox x:Name="cmbExamsReport" 
+                                                      Width="250" Height="35" 
+                                                      DisplayMemberPath="Name"
+                                                      SelectionChanged="CmbExamsReport_SelectionChanged"
+                                                      ToolTip="Select exam for report generation"/>
+
+                                            <TextBlock Text="Select Student:" 
+                                                       VerticalAlignment="Center" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="20,0,10,0"/>
+                                            <ComboBox x:Name="cmbStudentsReport" 
+                                                      Width="250" Height="35" 
+                                                      DisplayMemberPath="StudentName"
+                                                      ToolTip="Select student for individual report"/>
+
+                                            <Button Content="🎓 Generate Report Card" 
+                                                    Click="BtnGenerateReport_Click" 
+                                                    Width="160" Height="35" 
+                                                    Background="#9b59b6" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    Margin="15,0,0,0"
+                                                    ToolTip="Generate individual student report card"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Report Preview -->
+                                <Border Grid.Row="1" Background="White" CornerRadius="8" Padding="0" 
+                                        BorderBrush="#e0e0e0" BorderThickness="1" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <Border Background="#6c757d" CornerRadius="8,8,0,0" Padding="12">
+                                            <TextBlock Text="👁️ Report Preview" 
+                                                       FontSize="14" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="White"/>
+                                        </Border>
+
+                                        <Border Background="White" Padding="20" Height="450">
+                                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                                <StackPanel x:Name="spReportPreview">
+                                                    <TextBlock Text="🎯 Select a student and exam to generate report card" 
+                                                               HorizontalAlignment="Center" 
+                                                               VerticalAlignment="Center"
+                                                               FontSize="16" 
+                                                               Foreground="#7f8c8d" 
+                                                               Margin="0,150,0,0"
+                                                               TextAlignment="Center"/>
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                        </Border>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Action Buttons -->
+                                <Border Grid.Row="2" Background="#f8f9fa" CornerRadius="8" Padding="15">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="🖨️ Print Report" 
+                                                Click="BtnPrintReport_Click" 
+                                                Width="130" Height="35" 
+                                                Background="#3498db" 
+                                                Foreground="White" 
+                                                Margin="5"
+                                                ToolTip="Print current report"/>
+
+                                        <Button Content="📥 Export as PDF" 
+                                                Click="BtnExportPdf_Click" 
+                                                Width="130" Height="35" 
+                                                Background="#e74c3c" 
+                                                Foreground="White" 
+                                                Margin="5"
+                                                ToolTip="Export report as PDF file"/>
+
+                                        <Button Content="📊 Bulk Print All" 
+                                                Click="BtnPrintAll_Click" 
+                                                Width="130" Height="35" 
+                                                Background="#e67e22" 
+                                                Foreground="White" 
+                                                Margin="5"
+                                                ToolTip="Print all student reports"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ScrollViewer>
+                </TabItem>
+
+                <!-- 📅 MONTHLY TESTS TAB -->
+                <TabItem Header="📅 Monthly Tests &amp; Assessments" FontWeight="SemiBold">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                        <Border Background="White" CornerRadius="10" Margin="5" Padding="0">
+                            <Grid Margin="15">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Monthly Test Controls -->
+                                <Border Grid.Row="0" Background="#fff3cd" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <TextBlock Text="📅 Monthly Test Management" 
+                                                   FontSize="14" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#856404"
+                                                   Margin="0,0,0,10"/>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Select Exam:" 
+                                                       VerticalAlignment="Center" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,10,0"/>
+                                            <ComboBox x:Name="cmbMonthlyExams" 
+                                                      Width="250" Height="35" 
+                                                      DisplayMemberPath="Name"
+                                                      SelectionChanged="CmbMonthlyExams_SelectionChanged"
+                                                      ToolTip="Select exam for monthly tests"/>
+
+                                            <TextBlock Text="Select Month:" 
+                                                       VerticalAlignment="Center" 
+                                                       FontWeight="SemiBold"
+                                                       Margin="20,0,10,0"/>
+                                            <ComboBox x:Name="cmbMonths" 
+                                                      Width="150" Height="35"
+                                                      ToolTip="Select month for tests">
+                                                <ComboBoxItem Content="January" Tag="1" IsSelected="True"/>
+                                                <ComboBoxItem Content="February" Tag="2"/>
+                                                <ComboBoxItem Content="March" Tag="3"/>
+                                                <ComboBoxItem Content="April" Tag="4"/>
+                                                <ComboBoxItem Content="May" Tag="5"/>
+                                                <ComboBoxItem Content="June" Tag="6"/>
+                                                <ComboBoxItem Content="July" Tag="7"/>
+                                                <ComboBoxItem Content="August" Tag="8"/>
+                                                <ComboBoxItem Content="September" Tag="9"/>
+                                                <ComboBoxItem Content="October" Tag="10"/>
+                                                <ComboBoxItem Content="November" Tag="11"/>
+                                                <ComboBoxItem Content="December" Tag="12"/>
+                                            </ComboBox>
+
+                                            <Button Content="📋 Load Monthly Tests" 
+                                                    Click="BtnLoadMonthlyTests_Click" 
+                                                    Width="150" Height="35" 
+                                                    Background="#e67e22" 
+                                                    Foreground="White" 
+                                                    FontWeight="SemiBold"
+                                                    Margin="15,0,0,0"
+                                                    ToolTip="Load monthly tests for selected exam and month"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Student Selection for Monthly Tests -->
+                                <Border Grid.Row="1" Background="#e8f4fd" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <TextBlock Text="👥 Select Student for Monthly Tests" 
+                                                   FontSize="12" 
+                                                   FontWeight="Bold" 
+                                                   Foreground="#2980b9"
+                                                   Margin="0,0,0,10"/>
+
+                                        <ComboBox x:Name="cmbMonthlyStudents" 
+                                                  Width="300" Height="35" 
+                                                  DisplayMemberPath="StudentName"
+                                                  ToolTip="Select student for monthly test entry"
+                                                  SelectionChanged="CmbMonthlyStudents_SelectionChanged"/>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Monthly Tests Grid -->
+                                <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="0" 
+                                        BorderBrush="#e0e0e0" BorderThickness="1" Margin="0,0,0,10">
+                                    <StackPanel>
+                                        <Border Background="#e67e22" CornerRadius="8,8,0,0" Padding="12">
+                                            <TextBlock Text="📊 Monthly Test Marks" 
+                                                       FontSize="14" 
+                                                       FontWeight="Bold" 
+                                                       Foreground="White"/>
+                                        </Border>
+
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" Height="400">
+                                            <DataGrid x:Name="dgMonthlyTests" 
+                                                      AutoGenerateColumns="False" 
+                                                      CanUserAddRows="False"
+                                                      HeadersVisibility="Column">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="👤 Student" 
+                                                                       Binding="{Binding StudentName}" 
+                                                                       Width="150" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📖 Subject" 
+                                                                       Binding="{Binding SubjectName}" 
+                                                                       Width="120" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📅 Month" 
+                                                                       Binding="{Binding MonthName}" 
+                                                                       Width="100" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="📊 Max Marks" 
+                                                                       Binding="{Binding MaxMarks}" 
+                                                                       Width="80" IsReadOnly="True"/>
+                                                    <DataGridTextColumn Header="✏️ Obtained Marks" 
+                                                                       Binding="{Binding ObtainedMarks}" 
+                                                                       Width="100"/>
+                                                    <DataGridTextColumn Header="📈 Percentage" 
+                                                                       Binding="{Binding Percentage, StringFormat={}{0:F2}%}" 
+                                                                       Width="90" IsReadOnly="True"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </ScrollViewer>
+                                    </StackPanel>
+                                </Border>
+
+                                <!-- Save Button -->
+                                <Border Grid.Row="3" Background="#fdf6e3" CornerRadius="8" Padding="15">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Content="💾 Save Monthly Tests" 
+                                                Click="BtnSaveMonthlyTests_Click" 
+                                                Width="160" Height="40" 
+                                                Background="#e67e22" 
+                                                Foreground="White" 
+                                                FontWeight="Bold"
+                                                ToolTip="Save all monthly test marks"/>
+                                        <TextBlock Text="💡 Monthly tests are combined for final term exams" 
+                                                   FontSize="11" 
+                                                   Foreground="#856404" 
+                                                   Margin="15,0,0,0"
+                                                   VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+
+            <!-- Bottom Status Bar -->
+            <StatusBar Grid.Row="3" Background="#2c3e50" Height="30" Margin="0,10,0,0">
+                <StatusBarItem>
+                    <TextBlock x:Name="txtStatus" Text="✅ Ready - Exams Management System" 
+                               Foreground="White" FontWeight="SemiBold"/>
+                </StatusBarItem>
+                <StatusBarItem HorizontalAlignment="Right">
+                    <TextBlock Text="🏫 Kisa School Management System" 
+                               Foreground="#bdc3c7" FontSize="11"/>
+                </StatusBarItem>
+            </StatusBar>
+        </Grid>
+    </ScrollViewer>
+</Window>

@@ -1,0 +1,71 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Exams.AddExamWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add New Exam" Height="450" Width="500"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Exam Name -->
+        <TextBlock Grid.Row="0" Text="Exam Name *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" x:Name="txtExamName" Height="30" Margin="0,0,0,15"/>
+
+        <!-- Class Selection -->
+        <TextBlock Grid.Row="2" Text="Select Class *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <ComboBox Grid.Row="3" x:Name="cmbClass" Height="30" DisplayMemberPath="Name" 
+                  SelectedValuePath="Id" Margin="0,0,0,15"/>
+
+        <!-- Exam Type -->
+        <TextBlock Grid.Row="4" Text="Exam Type *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <ComboBox Grid.Row="5" x:Name="cmbExamType" Height="30" DisplayMemberPath="Name" 
+                  SelectedValuePath="Id" Margin="0,0,0,15">
+            <ComboBoxItem Content="Monthly Test" IsSelected="True"/>
+            <ComboBoxItem Content="Term Exam"/>
+            <ComboBoxItem Content="Final Exam"/>
+            <ComboBoxItem Content="Quiz"/>
+        </ComboBox>
+
+        <!-- Dates -->
+        <Grid Grid.Row="6" Margin="0,0,0,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="Start Date *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <DatePicker x:Name="dpStartDate" Height="30"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="End Date *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <DatePicker x:Name="dpEndDate" Height="30"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Academic Year -->
+        <TextBlock Grid.Row="7" Text="Academic Year *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="8" x:Name="txtAcademicYear" Height="30" Text="2024-2025" Margin="0,0,0,15"/>
+
+        <!-- Spacer -->
+        <Rectangle Grid.Row="9" Fill="Transparent" Height="20"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Save" Click="BtnSave_Click" Width="80" Height="30" 
+                    Background="#27ae60" Foreground="White" Margin="5"/>
+            <Button Content="Cancel" Click="BtnCancel_Click" Width="80" Height="30" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>

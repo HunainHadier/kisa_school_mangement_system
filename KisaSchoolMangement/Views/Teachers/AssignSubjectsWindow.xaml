@@ -1,0 +1,129 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Teachers.AssignSubjectsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="📚 Assign Subjects to Teacher" 
+        Height="600" 
+        Width="900"
+        WindowStartupLocation="CenterOwner"
+        Background="#f5f6fa">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="White" CornerRadius="10" Padding="20" Margin="0,0,0,15">
+            <StackPanel>
+                <TextBlock Text="📚 Assign Subjects to Teacher" 
+                           FontSize="20" 
+                           FontWeight="Bold" 
+                           Foreground="#2c3e50"/>
+                <TextBlock x:Name="txtTeacherInfo" 
+                           Text="Teacher: " 
+                           FontSize="14" 
+                           Foreground="#7f8c8d"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Assignment Form -->
+        <Border Grid.Row="1" Background="White" CornerRadius="10" Padding="15" Margin="0,0,0,15">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox x:Name="cmbSubjects" 
+                          Grid.Column="0" 
+                          Margin="0,0,10,0"
+                          DisplayMemberPath="Name"
+                          ToolTip="Select subject"/>
+
+                <ComboBox x:Name="cmbClasses" 
+                          Grid.Column="1" 
+                          Margin="0,0,10,0"
+                          DisplayMemberPath="Name"
+                          ToolTip="Select class"/>
+
+                <Button x:Name="btnAssign" 
+                        Grid.Column="2" 
+                        Content="➕ Assign" 
+                        Click="BtnAssign_Click"
+                        Width="80" Height="30"
+                        Background="#27ae60" 
+                        Foreground="White"
+                        FontWeight="SemiBold"
+                        Margin="0,0,10,0"/>
+
+                <Button x:Name="btnClose" 
+                        Grid.Column="3" 
+                        Content="❌ Close" 
+                        Click="BtnClose_Click"
+                        Width="80" Height="30"
+                        Background="#e74c3c" 
+                        Foreground="White"
+                        FontWeight="SemiBold"/>
+            </Grid>
+        </Border>
+
+        <!-- Current Assignments -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="0">
+            <StackPanel>
+                <Border Background="#34495e" CornerRadius="10,10,0,0" Padding="15">
+                    <TextBlock Text="📋 Current Subject Assignments" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Foreground="White"/>
+                </Border>
+
+                <DataGrid x:Name="dgAssignments" 
+                          AutoGenerateColumns="False" 
+                          IsReadOnly="True"
+                          HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="📚 Subject" 
+                                           Binding="{Binding SubjectName}" 
+                                           Width="200"/>
+                        <DataGridTextColumn Header="🔢 Code" 
+                                           Binding="{Binding SubjectCode}" 
+                                           Width="80"/>
+                        <DataGridTextColumn Header="🏫 Class" 
+                                           Binding="{Binding ClassName}" 
+                                           Width="100"/>
+                        <DataGridTextColumn Header="📅 Academic Year" 
+                                           Binding="{Binding AcademicYear}" 
+                                           Width="120"/>
+                        <DataGridTextColumn Header="📅 Assigned On" 
+                                           Binding="{Binding CreatedAt, StringFormat=yyyy-MM-dd}" 
+                                           Width="100"/>
+                        <DataGridTemplateColumn Header="⚡ Actions" Width="80">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="🗑️" 
+                                            Click="BtnRemoveAssignment_Click"
+                                            Background="#e74c3c" 
+                                            Foreground="White" 
+                                            Width="25" Height="25"
+                                            ToolTip="Remove assignment"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Border>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="3" Background="#2c3e50" Height="25" Margin="0,10,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="txtStatus" Text="Ready" Foreground="White"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

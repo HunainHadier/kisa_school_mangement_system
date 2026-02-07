@@ -1,0 +1,38 @@
+﻿<Window x:Class="KisaSchoolMangement.Views.Class.AddClassWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add New Class" Height="350" Width="400"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Class Name -->
+        <TextBlock Grid.Row="0" Text="Class Name *" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="1" x:Name="txtName" Height="30" Margin="0,0,0,15"/>
+
+        <!-- Class Code -->
+        <TextBlock Grid.Row="2" Text="Class Code" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="3" x:Name="txtCode" Height="30" Margin="0,0,0,15"/>
+
+        <!-- Description -->
+        <TextBlock Grid.Row="4" Text="Description" FontWeight="SemiBold" Margin="0,0,0,5"/>
+        <TextBox Grid.Row="5" x:Name="txtDescription" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Margin="0,0,0,15"/>
+
+        <!-- Spacer -->
+        <Rectangle Grid.Row="6" Fill="Transparent" Height="20"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Save" Click="btnSave_Click" Width="80" Height="30" Margin="5" Background="#FF008000" Foreground="White"/>
+            <Button Content="Cancel" Click="btnCancel_Click" Width="80" Height="30" Margin="5"/>
+        </StackPanel>
+    </Grid>
+</Window>
