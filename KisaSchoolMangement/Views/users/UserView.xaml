@@ -99,21 +99,14 @@
                         <!-- Filter Options -->
                         <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                             <ComboBox x:Name="cmbRoleFilter" Width="150" Height="35" Margin="0,0,10,0"
-                                      FontSize="14" SelectionChanged="cmbRoleFilter_SelectionChanged">
-                                <ComboBoxItem Content="All Roles" IsSelected="True"/>
-                                <ComboBoxItem Content="Admin"/>
-                                <ComboBoxItem Content="Teacher"/>
-                                <ComboBoxItem Content="Accountant"/>
-                                <ComboBoxItem Content="Clerk"/>
-                            </ComboBox>
+                                      FontSize="14" SelectionChanged="cmbRoleFilter_SelectionChanged"/>
                             <ComboBox x:Name="cmbStatusFilter" Width="120" Height="35"
-                                      FontSize="14" SelectionChanged="cmbStatusFilter_SelectionChanged">
-                                <ComboBoxItem Content="All Status" IsSelected="True"/>
-                                <ComboBoxItem Content="Active"/>
-                                <ComboBoxItem Content="Inactive"/>
-                            </ComboBox>
+                                      FontSize="14" SelectionChanged="cmbStatusFilter_SelectionChanged"/>
                             <Button Content="➕ Add User" Click="btnAddUser_Click" 
                                     Background="#4CAF50" Foreground="White" FontWeight="SemiBold"
+                                    Height="35" Padding="15,0" Margin="10,0,0,0" BorderThickness="0" Cursor="Hand"/>
+                            <Button Content="🔐 Permissions" Click="btnManagePermissions_Click"
+                                    Background="#7B1FA2" Foreground="White" FontWeight="SemiBold"
                                     Height="35" Padding="15,0" Margin="10,0,0,0" BorderThickness="0" Cursor="Hand"/>
                             <Button Content="🔄 Refresh" Click="btnRefresh_Click" 
                                     Background="#2196F3" Foreground="White" FontWeight="SemiBold"
