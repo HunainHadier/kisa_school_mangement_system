@@ -40,12 +40,27 @@ namespace KisaSchoolMangement.Models
         public string UpdatedAt { get; set; }
     }
 
-    public class PermissionModel
+    public class PermissionModel : System.ComponentModel.INotifyPropertyChanged
     {
         public string Module { get; set; }
         public string Key { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                if (_isSelected != value)
+                {
+                    _isSelected = value;
+                    PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(nameof(IsSelected)));
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
     }
 }
