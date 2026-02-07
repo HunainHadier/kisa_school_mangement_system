@@ -71,8 +71,6 @@ namespace KisaSchoolMangement.Services
                     bool passwordValid = BCryptNet.Verify(password, storedPasswordHash);
 
                     System.Diagnostics.Debug.WriteLine($"Password verification: {passwordValid}");
-                    System.Diagnostics.Debug.WriteLine($"Input password: {password}");
-                    System.Diagnostics.Debug.WriteLine($"Stored hash: {storedPasswordHash}");
 
                     if (passwordValid)
                     {
