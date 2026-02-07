@@ -118,6 +118,20 @@ namespace KisaSchoolMangement.Views.User
             }
         }
 
+        private void btnManagePermissions_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentUserId != 1)
+            {
+                MessageBox.Show("Only the Owner can manage roles and permissions.", "Access Denied",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var permissionsWindow = new RolePermissionWindow(_currentUserId);
+            permissionsWindow.Owner = this;
+            permissionsWindow.ShowDialog();
+        }
+
         private void btnEditUser_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && button.Tag is int userId)
