@@ -141,6 +141,7 @@ namespace KisaSchoolMangement.Views.User
             }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
