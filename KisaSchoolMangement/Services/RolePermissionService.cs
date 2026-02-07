@@ -182,5 +182,31 @@ namespace KisaSchoolMangement.Services
                 return false;
             }
         }
+
+
+        public bool CreatePermission(string module, string key, string name, string description)
+        {
+            try
+            {
+                using var conn = new MySqlConnection(_connectionString);
+                conn.Open();
+
+                string query = @"INSERT INTO permissions (module, permission_key, name, description)
+                                 VALUES (@Module, @Key, @Name, @Description)";
+
+                using var cmd = new MySqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Module", module);
+                cmd.Parameters.AddWithValue("@Key", key);
+                cmd.Parameters.AddWithValue("@Name", name);
+                cmd.Parameters.AddWithValue("@Description", string.IsNullOrWhiteSpace(description) ? DBNull.Value : description);
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Error creating permission: {ex.Message}", "Error");
+                return false;
+            }
+        }
     }
 }

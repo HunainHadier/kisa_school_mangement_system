@@ -112,6 +112,36 @@ namespace KisaSchoolMangement.Views.User
             }
         }
 
+        private void CreatePermission_Click(object sender, RoutedEventArgs e)
+        {
+            string module = txtPermissionModule.Text?.Trim();
+            string key = txtPermissionKey.Text?.Trim();
+            string name = txtPermissionName.Text?.Trim();
+            string description = txtPermissionDescription.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(module) ||
+                string.IsNullOrWhiteSpace(key) ||
+                string.IsNullOrWhiteSpace(name))
+            {
+                MessageBox.Show("Module, key, and name are required for permissions.", "Validation");
+                return;
+            }
+
+            bool result = _service.CreatePermission(module, key, name, description);
+            if (result)
+            {
+                txtPermissionModule.Text = string.Empty;
+                txtPermissionKey.Text = string.Empty;
+                txtPermissionName.Text = string.Empty;
+                txtPermissionDescription.Text = string.Empty;
+
+                Permissions = _service.GetAllPermissions();
+                OnPropertyChanged(nameof(Permissions));
+                LoadRolePermissions();
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged([CallerMemberName] string propertyName = null)
